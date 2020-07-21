@@ -1,18 +1,39 @@
+body{
+	background-image:url("wp.png");
+}
+
+.fundo{
+	background-image: url("cr.png"); 
+}
+
+h1 {
+  color: #ffffff;
+}
+
 #container {
-  padding-top: 1%;
+  padding-top: 2.5%;
+  padding-bottom: 3.5%;
+  padding-left: 150px; 
   margin: 0 auto;
   width: 50%;
-
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 #btn-search {
   width: 10%;
-  font-size: 13px;
+  font-size: 16px;
+  border-color: #EFB61D;
+  background-color: #EFB61D;
+  color: #362f2f;
+  border-width: 2px;
+  border-radius: 100px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 #id {
   width: 25%;
-  padding-right: 5%;
+  border-color: #EFB61D;
+  border-width: 1px;
+  border-radius: 100px;
+  font-family: Arial;
 }

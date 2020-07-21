@@ -34,6 +34,10 @@ client.hmset('aaa111', {
   'localizacao': 'Brasília-DF'
 });
 
+client.hmset('qwer123', {
+  'status': 'A caminho',
+  'localizacao': 'Pequim - China'
+});
 
 //criando a rota de acesso
 const app = express();
@@ -43,7 +47,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json());
 app.use(cors());
 
-//rota com get
+//rota com get: não estou usando mais
 app.get('/pedidos/:id', (req, res) => {
   const id = req.params.id;
   client.get(id, (err, reply) => {
@@ -54,7 +58,7 @@ app.get('/pedidos/:id', (req, res) => {
   });
 });
 
-//rota com hgetall
+//rota com hgetall: está sendo usado
 app.get('/pedido/:key', (req, res) => {
   const key = req.params.key;
   client.hgetall(key, (err, reply) => {
@@ -71,10 +75,3 @@ app.get('/', (req, res) => {
 
 app.listen(3333, () => console.log('Iniciado em http://localhost:3333'));
 
-/*app.options('*', cors());
-
-app.all('/*', (req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'X-Requested-With');
-  next();
-})*/
