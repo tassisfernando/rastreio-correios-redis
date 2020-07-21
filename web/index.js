@@ -16,27 +16,35 @@ btnSearch.onclick = () => {
   axios.get(`http://localhost:3333/pedido/${codigo}`)
   .then((res) => {
     if(res) {
-      var pedido = res.data.pedido;
+      var pedido = res.data;
       showPedido(pedido);
     }
   }).catch((err) => {
-    alert("Pedido não encontrado!");
-    var pedido = 'Pedido não encontrado.';
+    var pedido = {
+      status: 'Pedido não encontrado.',
+      localizacao: '-'
+    }
     showPedido(pedido);
   });
 
   inputElement.value = '';
+  btnSearch.disabled = true;
 }
 
 function showPedido(pedido) {
   divResultado.innerHTML = '';
 
-  var status = pedido;
-  var pElement = document.createElement('p');
-  var pText = document.createTextNode(status);
+  var status = pedido.status;
+  var pStatusElement = document.createElement('p');
+  var pStatusText = document.createTextNode(`Status: ${status}`);
+  pStatusElement.appendChild(pStatusText);
+  divResultado.appendChild(pStatusElement);
 
-  pElement.appendChild(pText);
-  divResultado.appendChild(pElement);
+  var local = pedido.localizacao;
+  var pLocalElement = document.createElement('p');
+  var pLocalText = document.createTextNode(`Localização: ${local}`);
+  pLocalElement.appendChild(pLocalText);
+  divResultado.appendChild(pLocalElement);
 }
 
 

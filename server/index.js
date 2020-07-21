@@ -9,12 +9,31 @@ const client = redis.createClient();
 
 client.on('connect', () => { console.log('Redis connected') });
 
-client.set('total', '1800');
-client.set('pedido1', 'entregue');
-
-client.hmset('teste', ["1", "2"], (err, res) => {
-  err ? console.log('Erro: ', err.message) : console.log();
+client.hmset('123abc', {
+  'status': 'Entregue',
+  'localizacao': '-'
 });
+
+client.hmset('1a2b', {
+  'status': 'A caminho',
+  'localizacao': 'Belo Horizonte-MG'
+});
+
+client.hmset('456def', {
+  'status': 'A caminho',
+  'localizacao': 'Cajamar-SP'
+});
+
+client.hmset('789xyz', {
+  'status': 'A caminho',
+  'localizacao': 'Ipatinga-MG'
+});
+
+client.hmset('aaa111', {
+  'status': 'A caminho',
+  'localizacao': 'Brasília-DF'
+});
+
 
 //criando a rota de acesso
 const app = express();
@@ -24,15 +43,27 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json());
 app.use(cors());
 
-app.get('/pedido/:id', (req, res) => {
+//rota com get
+app.get('/pedidos/:id', (req, res) => {
   const id = req.params.id;
   client.get(id, (err, reply) => {
     if(reply) {
       return res.json({ pedido: reply });
     } 
-    return res.status(404).json({ message: 'Pedido não encontrado.' })  
+    return res.status(404).json({ message: 'Pedido não encontrado.' }); 
   });
 });
+
+//rota com hgetall
+app.get('/pedido/:key', (req, res) => {
+  const key = req.params.key;
+  client.hgetall(key, (err, reply) => {
+    if(reply) {
+      return res.json(reply);
+    } 
+    return res.status(404).json({ message: 'Pedido não encontrado.' }) ;
+  });
+})
 
 app.get('/', (req, res) => {
   res.send('Hello World')
