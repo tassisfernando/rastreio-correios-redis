@@ -23,13 +23,6 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json());
 app.use(cors());
-app.options('*', cors());
-
-app.all('/*', (req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'X-Requested-With');
-  next();
-})
 
 app.get('/pedido/:id', (req, res) => {
   const id = req.params.id;
@@ -46,3 +39,11 @@ app.get('/', (req, res) => {
 });
 
 app.listen(3333, () => console.log('Iniciado em http://localhost:3333'));
+
+/*app.options('*', cors());
+
+app.all('/*', (req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'X-Requested-With');
+  next();
+})*/

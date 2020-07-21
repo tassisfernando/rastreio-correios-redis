@@ -1,6 +1,14 @@
 const btnSearch = document.querySelector('button#btn-search');
 const inputElement = document.querySelector('input#id');
-const divResultado =  document.querySelector('div#resultado')
+const divResultado =  document.querySelector('div#resultado');
+
+btnSearch.disabled = true;
+
+inputElement.addEventListener('input', (event) => {
+  var value = inputElement.value;
+
+  value ? btnSearch.disabled = false : btnSearch.disabled = true;
+})
 
 btnSearch.onclick = () => {
   var codigo = inputElement.value; 
@@ -8,13 +16,13 @@ btnSearch.onclick = () => {
   axios.get(`http://localhost:3333/pedido/${codigo}`)
   .then((res) => {
     if(res) {
-      console.log(res);
       var pedido = res.data.pedido;
       showPedido(pedido);
     }
   }).catch((err) => {
-    alert("Pedido não encontrado!")
-    console.log(err);
+    alert("Pedido não encontrado!");
+    var pedido = 'Pedido não encontrado.';
+    showPedido(pedido);
   });
 
   inputElement.value = '';

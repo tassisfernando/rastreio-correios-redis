@@ -2,15 +2,20 @@
 <head>
   <meta charset="UTF-8">
   <title>Correios - rastreie seu pedido</title>
+  <link rel="stylesheet" href="index.css">
 </head>
 <body>
-  <h1>Rastreio de Pedidos</h1>
+  <div id="container">
+    <h1>Rastreio de Pedidos</h1>
     <input name="id" required id="id" placeholder="Digite o código" type="text">
     <button name="btn-search" type="submit" id="btn-search">Buscar</button>
 
+    <hr>
+
     <h3>Status do pedido:</h3>
-  <div id="resultado" class="resultado">
-    <p>...</p>
+    <div id="resultado" class="resultado">
+      <p>...</p>
+    </div>
   </div>
 
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
