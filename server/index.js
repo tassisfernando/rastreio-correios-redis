@@ -39,6 +39,11 @@ client.hmset('qwer123', {
   'localizacao': 'Pequim - China'
 });
 
+client.hmset('wasd123', {
+  'status': 'A caminho',
+  'localizacao': 'Unidade de Tratamento - BH'
+});
+
 //criando a rota de acesso
 const app = express();
 app.use(express.json());
