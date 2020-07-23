@@ -35,13 +35,13 @@ function showPedido(pedido) {
   divResultado.innerHTML = '';
 
   var status = pedido.status;
-  var pStatusElement = document.createElement('p');
+  var pStatusElement = document.createElement('h5');
   var pStatusText = document.createTextNode(`Status: ${status}`);
   pStatusElement.appendChild(pStatusText);
   divResultado.appendChild(pStatusElement);
 
   var local = pedido.localizacao;
-  var pLocalElement = document.createElement('p');
+  var pLocalElement = document.createElement('h5');
   var pLocalText = document.createTextNode(`Localização: ${local}`);
   pLocalElement.appendChild(pLocalText);
   divResultado.appendChild(pLocalElement);

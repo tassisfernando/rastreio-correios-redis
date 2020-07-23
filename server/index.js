@@ -9,40 +9,8 @@ const client = redis.createClient();
 
 client.on('connect', () => { console.log('Redis connected') });
 
-client.hmset('123abc', {
-  'status': 'Entregue',
-  'localizacao': '-'
-});
-
-client.hmset('1a2b', {
-  'status': 'A caminho',
-  'localizacao': 'Belo Horizonte-MG'
-});
-
-client.hmset('456def', {
-  'status': 'A caminho',
-  'localizacao': 'Cajamar-SP'
-});
-
-client.hmset('789xyz', {
-  'status': 'A caminho',
-  'localizacao': 'Ipatinga-MG'
-});
-
-client.hmset('aaa111', {
-  'status': 'A caminho',
-  'localizacao': 'Brasília-DF'
-});
-
-client.hmset('qwer123', {
-  'status': 'A caminho',
-  'localizacao': 'Pequim - China'
-});
-
-client.hmset('wasd123', {
-  'status': 'A caminho',
-  'localizacao': 'Unidade de Tratamento - BH'
-});
+//adicionando registros no Redis: descomentar na primeira execução
+//addData();
 
 //criando a rota de acesso
 const app = express();
@@ -51,6 +19,17 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json());
 app.use(cors());
+
+//rota com hgetall: está sendo usado
+app.get('/pedido/:key', (req, res) => {
+  const key = req.params.key;
+  client.hgetall(key, (err, reply) => {
+    if(reply) {
+      return res.json(reply);
+    } 
+    return res.status(404).json({ message: 'Pedido não encontrado.' }) ;
+  });
+});
 
 //rota com get: não estou usando mais
 app.get('/pedidos/:id', (req, res) => {
@@ -63,20 +42,46 @@ app.get('/pedidos/:id', (req, res) => {
   });
 });
 
-//rota com hgetall: está sendo usado
-app.get('/pedido/:key', (req, res) => {
-  const key = req.params.key;
-  client.hgetall(key, (err, reply) => {
-    if(reply) {
-      return res.json(reply);
-    } 
-    return res.status(404).json({ message: 'Pedido não encontrado.' }) ;
-  });
-})
-
+//rota para testar se a API estava funcionando
 app.get('/', (req, res) => {
   res.send('Hello World')
 });
 
 app.listen(3333, () => console.log('Iniciado em http://localhost:3333'));
 
+function addData() {
+  client.hmset('123abc', {
+    'status': 'Entregue',
+    'localizacao': '-'
+  });
+
+  client.hmset('1a2b', {
+    'status': 'A caminho',
+    'localizacao': 'Belo Horizonte-MG'
+  });
+
+  client.hmset('456def', {
+    'status': 'A caminho',
+    'localizacao': 'Cajamar-SP'
+  });
+
+  client.hmset('789xyz', {
+    'status': 'A caminho',
+    'localizacao': 'Ipatinga-MG'
+  });
+
+  client.hmset('aaa111', {
+    'status': 'A caminho',
+    'localizacao': 'Brasília-DF'
+  });
+
+  client.hmset('qwer123', {
+    'status': 'A caminho',
+    'localizacao': 'Pequim - China'
+  });
+
+  client.hmset('wasd123', {
+    'status': 'A caminho',
+    'localizacao': 'Unidade de Tratamento - BH'
+  });
+}
