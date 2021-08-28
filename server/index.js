@@ -10,7 +10,7 @@ const client = redis.createClient();
 client.on('connect', () => { console.log('Redis connected') });
 
 //adicionando registros no Redis: descomentar na primeira execução
-//addData();
+addData();
 
 //criando a rota de acesso
 const app = express();
