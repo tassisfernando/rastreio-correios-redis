@@ -5,25 +5,27 @@ const divResultado =  document.querySelector('div#resultado');
 btnSearch.disabled = true;
 
 inputElement.addEventListener('input', (event) => {
-  var value = inputElement.value;
+  let value = inputElement.value;
 
   value ? btnSearch.disabled = false : btnSearch.disabled = true;
 })
 
 btnSearch.onclick = () => {
-  var codigo = inputElement.value; 
+  let codigo = inputElement.value; 
 
   axios.get(`http://localhost:3333/pedido/${codigo}`)
   .then((res) => {
     if(res) {
-      var pedido = res.data;
+      let pedido = res.data;
       showPedido(pedido);
     }
   }).catch((err) => {
-    var pedido = {
+    let pedido = {
+      nome: 'Erro',
       status: 'Pedido não encontrado.',
       localizacao: '-'
     }
+
     showPedido(pedido);
   });
 
@@ -34,15 +36,21 @@ btnSearch.onclick = () => {
 function showPedido(pedido) {
   divResultado.innerHTML = '';
 
-  var status = pedido.status;
-  var pStatusElement = document.createElement('h5');
-  var pStatusText = document.createTextNode(`Status: ${status}`);
+  let nome = pedido.nome;
+  let pNomeElement = document.createElement('h5');
+  let pNomeText = document.createTextNode(`${nome}`);
+  pNomeElement.appendChild(pNomeText);
+  divResultado.appendChild(pNomeElement);
+
+  let status = pedido.status;
+  let pStatusElement = document.createElement('h5');
+  let pStatusText = document.createTextNode(`Status: ${status}`);
   pStatusElement.appendChild(pStatusText);
   divResultado.appendChild(pStatusElement);
 
-  var local = pedido.localizacao;
-  var pLocalElement = document.createElement('h5');
-  var pLocalText = document.createTextNode(`Localização: ${local}`);
+  let local = pedido.localizacao;
+  let pLocalElement = document.createElement('h5');
+  let pLocalText = document.createTextNode(`Localização: ${local}`);
   pLocalElement.appendChild(pLocalText);
   divResultado.appendChild(pLocalElement);
 }

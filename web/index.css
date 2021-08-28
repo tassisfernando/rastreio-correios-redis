@@ -20,13 +20,12 @@ span{
 }
 
 #img{
-  width: 200px;
+  width: 300px;
 }
 
 h1 {
   color: #ffffff;
 }
-
 
 #btn-search {
   width: 10vw;
@@ -63,10 +62,10 @@ h1 {
 }
 
 main{
-  height: calc(100vh - 385px)
+  height: calc(100vh - 337px)
 }
 
-.verde{
+.amarelo{
   background-color: #EFB61D;
   height: 30px;
 }
